@@ -1,5 +1,4 @@
-
-version: 1
+version: 2
 
 models:
   - name: stg_orders
@@ -8,7 +7,6 @@ models:
         tests:
           - not_null
           - unique
-
       - name: order_status
         tests:
           - accepted_values:
@@ -22,12 +20,26 @@ models:
                 ,'created'
                 ,'approved'
               ]
-
+  - name: dim_customers
+    columns:
+      - name : customer_id
+        tests : 
+          - not_null
+          - unique
+          
+  - name: dim_products
+    columns:
+      - name : product_id
+        tests : 
+          - not_null
+          - unique
+          
   - name: fact_sales
     columns:
       - name: order_id
         tests:
           - not_null
+          #- unique #akan gagal karena tabel fact sales gabungan dari order dan order_items
 
       - name: customer_id
         tests:

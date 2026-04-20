@@ -38,6 +38,13 @@ SELECT *
 FROM FACT_SALES fs 
 WHERE fs.PRICE <= 0;
 ----quantity <= 0
+---- tidak menemukan kolom quantity, saya coba tampilkan data order dengan jumlah/ order items 0
+
+SELECT ro.ORDER_ID, count(DISTINCT ORDER_ITEM_ID) jml
+FROM RAW_ORDERs ro 
+LEFT JOIN RAW_ORDER_ITEMS roi ON ro.ORDER_ID = roi.ORDER_ID
+group BY ro.ORDER_ID
+HAVING count(DISTINCT ORDER_ITEM_ID) = 0;
 ---- missing customer_id
 SELECT * 
 FROM FACT_SALES fs
